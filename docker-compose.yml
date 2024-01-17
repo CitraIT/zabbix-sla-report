@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+    zabbix-sla:
+        build: src
+        container_name: zabbix-sla
+        image: zabbix-sla:dev
+        restart: always
+        environment:
+            - DEBUG=1
+        ports:
+            - '80:80'
+
