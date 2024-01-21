@@ -1,13 +1,31 @@
 version: '3'
 
 services:
-    zabbix-sla:
-        build: src
-        container_name: zabbix-sla
-        image: zabbix-sla:dev
+    app:
+        image: python:slim
         restart: always
-        environment:
-            - DEBUG=1
+        command: bash -c "pip install virtualenv
+            && python -m venv .venv 
+            && source .venv/bin/activate 
+            && pip install -r /app/requirements.txt 
+            && cd /app 
+            && python manage.py makemigrations 
+            && python manage.py migrate 
+            && python manage.py runserver 0.0.0.0:80"
+
+        volumes:
+            - ./app:/app
+
+    web:
+        image: nginx:latest
+        restart: always
         ports:
-            - '80:80'
+            - '443:443'
+        links:
+            - app
+        volumes:
+            - ./web/nginx.conf:/etc/nginx/nginx.conf
+            - ./app:/app
+            - ./web/server.pem:/etc/ssl/server.pem
+            - ./web/server.key:/etc/ssl/server.key
 

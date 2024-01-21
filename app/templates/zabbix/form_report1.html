@@ -1,0 +1,23 @@
+{% extends 'core/base.html' %}
+{% block custom_headers %}
+
+{% endblock %}
+
+{% block content %}
+<h1>SLA por Cliente</h1>
+<form action="/zabbix/report1/" method="POST">
+{% csrf_token %}
+<label for="customer_id">Cliente</label>
+<select name="customer_id">
+{% for customer in customer_list %}
+    <option value="{{customer.id}}">{{ customer.name }}</option>
+{% endfor %}
+</select>
+<label for="data_inicio">Data início</label>
+<input type="date" name="data_inicio">
+<label for="data_fim">Data fim</label>
+<input type="date" name="data_fim">
+<input type="submit">
+</form>
+
+{% endblock %}
