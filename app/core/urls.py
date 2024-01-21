@@ -26,7 +26,7 @@ urlpatterns = [
     path('', dashboard),
     path('accounts/login/', LoginView.as_view(template_name='core/login.html'), name='login'),
     path('dashboard', dashboard, name='dashboard'),
-    path('admin/', admin.site.urls),
+    #path('admin/', admin.site.urls),
     path('zabbix/', include('zabbix.urls')),
     
 ] 
