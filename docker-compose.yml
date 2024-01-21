@@ -1,5 +1,4 @@
 version: '3'
-
 services:
     app:
         image: python:slim
@@ -11,10 +10,14 @@ services:
             && cd /app 
             && python manage.py makemigrations 
             && python manage.py migrate 
+            && python manage.py createsuperuser --noinput
             && python manage.py runserver 0.0.0.0:80"
-
         volumes:
             - ./app:/app
+        environment:
+            - DJANGO_SUPERUSER_EMAIL=support@contoso.corp
+            - DJANGO_SUPERUSER_USERNAME=admin
+            - DJANGO_SUPERUSER_PASSWORD=admin
 
     web:
         image: nginx:latest
