@@ -10,7 +10,7 @@ Instalação:
 1. Clone o projeto no host docker. ex.:
 ```
 git clone https://github.com/citrait/zabbix-sla-report.git
-```
+```  
 2. Modifique o arquivo docker-compose.yml e edite as variáveis contendo o login e senha do usuário administrador conforme desejar.
 ```
  environment:
