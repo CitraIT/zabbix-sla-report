@@ -3,8 +3,9 @@ from django.http.request import HttpRequest
 from django.shortcuts import render, redirect
 from zabbix.models import Customer, ZabbixSLA
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login as django_login
 from .forms import LoginForm
+from django.views.decorators.csrf import csrf_exempt
 
 
 
@@ -20,6 +21,8 @@ def index(request):
 def dashboard(request):
     return render(request, "core/dashboard.html")
 
+
+@csrf_exempt
 def login(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
@@ -27,7 +30,7 @@ def login(request):
             data = form.cleaned_data
             user = authenticate(username=data['username'], password=data['password'])
             if user is not None:
-                login(request, user)
+                django_login(request, user=user)
                 return redirect(index)
             else:
                 return render(request, "core/login.html", context={'form': form, 'error': 'Usuários ou senha inválidos.'})

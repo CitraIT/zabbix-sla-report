@@ -3,14 +3,15 @@ services:
     app:
         image: python:slim
         restart: always
-        command: bash -c "pip install virtualenv
+        command: bash -c "pip install --upgrade pip
+            && pip install virtualenv
             && python -m venv .venv 
             && source .venv/bin/activate 
             && pip install -r /app/requirements.txt 
             && cd /app 
             && python manage.py makemigrations 
             && python manage.py migrate 
-            && python manage.py createsuperuser --noinput
+            && (python manage.py createsuperuser --noinput || echo "true")
             && python manage.py runserver 0.0.0.0:80"
         volumes:
             - ./app:/app
@@ -18,6 +19,8 @@ services:
             - DJANGO_SUPERUSER_EMAIL=support@contoso.corp
             - DJANGO_SUPERUSER_USERNAME=admin
             - DJANGO_SUPERUSER_PASSWORD=admin
+            - DJANGO_TRUSTED_ORIGINS=https://192.168.100.44
+              
 
     web:
         image: nginx:latest

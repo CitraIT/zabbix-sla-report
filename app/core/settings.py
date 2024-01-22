@@ -25,9 +25,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-bq2ql#+3=9!f14z_q*@d@_kya6*)3=+lb%7_&ia(jn%$l08mlb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+
+CSRF_TRUSTED_ORIGINS = [os.environ.get('DJANGO_TRUSTED_ORIGINS'),]
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTOCOL", "https")
+CORS_ORIGIN_ALLOW_ALL = DEBUG
 
 STATIC_URL = 'static/'
 
@@ -40,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    #'django.contrib.staticfiles',
+    'django.contrib.staticfiles',
     'zabbix',
     'crispy_forms',
     'crispy_bootstrap4'

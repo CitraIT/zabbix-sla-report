@@ -25,6 +25,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', dashboard),
     path('accounts/login/', LoginView.as_view(template_name='core/login.html'), name='login'),
+    #path('accounts/login/', login, name='login'),
     path('dashboard', dashboard, name='dashboard'),
     #path('admin/', admin.site.urls),
     path('zabbix/', include('zabbix.urls')),
