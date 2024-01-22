@@ -1,5 +1,5 @@
-# zabbix-sla-report
-Web App para exibir o SLA do zabbix de forma gráfica e com seleção de período.  
+# Relatório de Disponibilidade (SLA) do Zabbix  
+Este projeto é uma aplicação web para exibir a medição de SLA de Serviços no zabbix de forma gráfica e com seleção de período.  
 
 Pré-Requisitos:  
 - Docker instalado
